@@ -1,0 +1,124 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
+}
+
+body {
+
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    color: white;
+}
+
+/* BACKGROUND */
+body::before {
+
+    content: "";
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background:
+    linear-gradient(rgba(77,54,12,0.6), rgba(77,54,12,0.6)),
+        url("../images/paket.png");
+
+    background-size: cover;
+    background-position: center;
+
+    z-index: -1;
+}
+
+.container {
+    text-align: center;
+}
+
+/* LOGO */
+.logo {
+
+    width: 180px;
+    margin-bottom: 25px;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.logo:hover {
+
+    transform: scale(1.05);
+}
+
+/* TITLE */
+.title {
+
+    font-size: 64px;          /* lebih besar seperti gambar */
+    font-weight: 600;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 15px;
+}
+
+/* SUBTITLE */
+.subtitle {
+
+    font-size: 24px;
+
+    font-weight: 400;
+
+    margin-bottom: 35px;
+}
+
+/* CONTAINER BUTTON */
+.menu-buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 20px;
+
+    flex-wrap: wrap;
+}
+
+/* BUTTON STYLE */
+.menu-btn {
+
+    background-color: #e5e5e5;
+
+    color: #333;
+
+    padding: 12px 30px;
+
+    border-radius: 30px;
+
+    text-decoration: none;
+
+    font-size: 16px;
+
+    font-weight: 500;
+
+    transition: all 0.3s ease;
+
+}
+
+/* HOVER EFFECT */
+.menu-btn:hover {
+
+    background-color: #c49b63;
+
+    color: white;
+
+    transform: scale(1.08);
+}

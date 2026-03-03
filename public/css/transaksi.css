@@ -1,0 +1,158 @@
+/* ================= BACKGROUND ================= */
+.hero {
+    position: relative;
+    height: 100vh;
+    background: url('../images/image 1.png') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Overlay coklat elegan */
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        rgba(70, 35, 15, 0.85),
+        rgba(130, 75, 35, 0.85)
+    );
+}
+
+/* ================= LOGO ================= */
+.logo {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    z-index: 3;
+}
+
+.logo img {
+    width: 160px;
+}
+
+/* ================= CONTAINER ================= */
+.container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 950px;
+    text-align: center;
+}
+
+/* ================= TITLE ================= */
+.title {
+    color: #ffffff;
+    font-size: 40px;
+    letter-spacing: 3px;
+    margin-bottom: 45px;
+    font-weight: 600;
+}
+
+/* ================= FORM ================= */
+.form-transaksi {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Row layout */
+.form-row {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-bottom: 28px;
+}
+
+/* ================= INPUT STYLE ================= */
+.form-row input,
+.fake-input {
+    width: 360px;
+    padding: 18px 25px;
+    border-radius: 25px;
+    font-size: 16px;
+
+    background: rgba(255, 235, 210, 0.88);
+    backdrop-filter: blur(8px);
+
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+/* Input khusus */
+.form-row input {
+    border: none;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+/* Fake input (label kiri tanggal) */
+.fake-input {
+    display: flex;
+    align-items: center;
+    color: #3e2723;
+    font-weight: 500;
+}
+
+/* Focus effect */
+.form-row input:focus {
+    background: rgba(255, 220, 190, 0.95);
+    box-shadow: 0 0 0 2px #ffa726;
+}
+
+/* Placeholder */
+.form-row input::placeholder {
+    color: #5d4037;
+}
+
+/* ================= BUTTON ================= */
+.button-wrapper {
+    margin-top: 15px;
+    text-align: left;
+    margin-left: 60px;
+}
+
+.btn-pesan {
+    padding: 14px 40px;
+    border-radius: 35px;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+
+    background: linear-gradient(45deg, #ffa726, #fb8c00);
+    color: white;
+
+    box-shadow: 0 10px 25px rgba(255, 140, 0, 0.4);
+    transition: 0.3s ease;
+}
+
+.btn-pesan:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(255, 140, 0, 0.6);
+}
+
+/* ================= ALERT ================= */
+.alert-success {
+    background: #4caf50;
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width: 900px) {
+    .form-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .button-wrapper {
+        text-align: center;
+        margin-left: 0;
+    }
+
+    .logo {
+        left: 20px;
+    }
+}

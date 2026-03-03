@@ -1,0 +1,215 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: black;
+    overflow: hidden;
+    /* Prevent page scrolling */
+}
+
+.tentang-section {
+
+    min-height: 100vh;
+
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+        url("../images/image 1.png");
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-top: 20px;
+    padding-bottom: 10px;
+    color: white;
+}
+
+/* LOGO */
+.logo {
+
+    width: 100px;
+    margin-bottom: 5px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.logo:hover {
+
+    transform: scale(1.05);
+}
+
+/* TITLE */
+.title {
+
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.search-container {
+    width: 95%;
+    margin: 10px auto;
+    text-align: right;
+}
+
+.search-input {
+    padding: 8px 12px;
+    width: 250px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-family: 'Poppins', sans-serif;
+}
+
+.search-btn {
+    padding: 8px 15px;
+    border: none;
+    background-color: #c23b3b;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.table-container {
+    width: 95%;
+    margin: 10px auto;
+    max-height: 55vh;
+    /* Fixed height for table */
+    overflow-y: auto;
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    background-color: white;
+}
+
+.transaksi-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    font-size: 13px;
+    /* Smaller font */
+}
+
+.transaksi-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.transaksi-table th {
+    background-color: #c23b3b;
+    color: white;
+    padding: 8px 5px;
+    /* Smaller padding */
+    font-weight: 600;
+}
+
+.transaksi-table td {
+    padding: 6px 4px;
+    /* Smaller padding */
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    color: #333;
+}
+
+.transaksi-table td select {
+    padding: 3px 6px;
+    font-size: 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    color: #333;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.transaksi-table td button {
+    background-color: #c23b3b;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.transaksi-table td button:hover {
+    background-color: #a02e2e;
+}
+
+.btn-edit {
+    background-color: #c23b3b;
+    padding: 6px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+    margin-right: 5px;
+}
+
+.btn-delete {
+    background-color: #c23b3b;
+    padding: 6px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+    margin-right: 5px;
+}
+
+.transaksi-table tfoot td {
+    position: sticky;
+    bottom: 0;
+    background-color: #f9f9f9;
+    z-index: 20;
+    border-top: 2px solid #ddd;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.table-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0;
+    width: 100%;
+}
+
+.table-pagination .pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 8px;
+}
+
+.table-pagination .page-item .page-link {
+    color: #c23b3b;
+    padding: 6px 14px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.table-pagination .page-item.active .page-link {
+    background-color: #c23b3b;
+    border-color: #c23b3b;
+    color: white;
+}
+
+.table-pagination .page-item.disabled .page-link {
+    color: #ccc;
+    pointer-events: none;
+}
+
+.table-pagination .page-link:hover:not(.disabled) {
+    background-color: #fcebeb;
+    border-color: #c23b3b;
+}

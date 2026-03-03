@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
+}
+
+body {
+
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+}
+
+/* BACKGROUND */
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+    left: 0;
+
+    background:
+        linear-gradient(rgba(77,54,12,0.7), rgba(77,54,12,0.7)),
+        url("../images/paket.png");
+
+    background-size: cover;
+    background-position: center;
+
+    z-index: -1;
+}
+
+/* CONTAINER */
+.container {
+
+    width: 90%;
+
+    text-align: center;
+}
+
+/* TITLE */
+.title {
+
+    font-size: 64px;
+
+    font-weight: 600;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 50px;
+}
+
+/* MENU LIST */
+.menu-list {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 40px;
+
+    flex-wrap: wrap;
+}
+
+/* MENU ITEM */
+.menu-item {
+
+    text-align: center;
+
+    transition: 0.3s;
+
+    cursor: pointer;
+}
+
+.menu-item:hover {
+
+    transform: scale(1.08);
+}
+
+/* IMAGE */
+.menu-item img {
+
+    width: 160px;
+
+    height: 220px;
+
+    object-fit: cover;
+
+    border-radius: 6px;
+
+    margin-bottom: 15px;
+}
+
+/* NAME */
+.menu-name {
+
+    font-size: 18px;
+
+    font-weight: 400;
+}

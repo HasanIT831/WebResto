@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
+}
+
+body {
+
+    min-height: 100vh;
+
+    padding: 40px 60px;
+
+    color: white;
+}
+
+/* BACKGROUND */
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background:
+        linear-gradient(rgba(77,54,12,0.75), rgba(77,54,12,0.75)),
+        url("../images/paket.png");
+
+    background-size: cover;
+    background-position: center;
+
+    z-index: -1;
+}
+
+/* CONTAINER */
+.container {
+
+    width: 100%;
+}
+
+/* SECTION */
+.section {
+
+    margin-bottom: 60px;
+}
+
+/* HEADER (revisi penting) */
+.section-header {
+
+    position: relative;
+
+    width: 100%;
+
+    margin-bottom: 30px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+/* TITLE CENTER */
+.section-title {
+
+    font-size: 64px;
+
+    font-weight: 600;
+
+    letter-spacing: 3px;
+
+    text-align: center;
+}
+
+/* PRICE RIGHT */
+.section-price {
+
+    position: absolute;
+
+    right: 0;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    font-size: 20px;
+
+    text-align: right;
+}
+
+/* MENU ROW */
+.menu-row {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 40px;
+
+    flex-wrap: wrap;
+}
+
+/* CARD */
+.menu-card {
+
+    text-align: center;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.menu-card:hover {
+
+    transform: scale(1.05);
+}
+
+/* IMAGE */
+.menu-card img {
+
+    width: 240px;
+
+    height: 140px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    display: block;
+
+    margin-bottom: 10px;
+}
+
+/* TEXT */
+.menu-card p {
+
+    font-size: 20px;
+}

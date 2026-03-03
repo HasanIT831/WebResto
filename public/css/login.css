@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: black;
+}
+
+/* SECTION BACKGROUND */
+.tentang-section {
+    min-height: 100vh;
+
+    background:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+    url("../images/image 1.png");
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-top: 60px;
+    color: white;
+}
+
+/* LOGO */
+.logo {
+    width: 180px;
+    margin-bottom: 30px;
+}
+
+/* Card */
+.login-card {
+    background: #f2f2f2;
+    width: 400px;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    color:#000000;
+}
+
+.login-card h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+    color:#000000;
+}
+
+/* Label */
+.login-card label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: block;
+    color:#000000;
+}
+
+/* Input */
+.login-card input[type="text"],
+.login-card input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #000000;
+    margin-bottom: 15px;
+    outline: none;
+    font-size: 14px;
+}
+
+/* Checkbox + Forgot */
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    margin-bottom: 20px;
+    color:#000000;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.forgot {
+    text-decoration: none;
+    color: #6b4a2b;
+}
+
+.forgot:hover {
+    text-decoration: underline;
+}
+
+/* Button */
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #b58963;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #9e734f;
+}
+
+/* Register */
+.register {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 13px;
+}
+
+.register a {
+    text-decoration: none;
+    color: #6b4a2b;
+    font-weight: 500;
+}
+
+.register a:hover {
+    text-decoration: underline;
+}

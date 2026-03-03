@@ -1,0 +1,132 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
+}
+
+body {
+
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+
+    align-items: flex-start; /* ubah dari center ke flex-start */
+
+    padding-top: 50px; /* atur posisi naik ke atas */
+
+    color: white;
+}
+
+/* BACKGROUND */
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+    left: 0;
+
+    background:
+        linear-gradient(rgba(77,54,12,0.7), rgba(77,54,12,0.7)),
+        url("../images/paket.png");
+
+    background-size: cover;
+    background-position: center;
+
+    z-index: -1;
+}
+
+/* CONTAINER */
+.container {
+
+    width: 80%;
+
+    text-align: center;
+}
+
+/* HEADER */
+.header {
+
+    position: relative;
+
+    margin-bottom: 40px;
+}
+
+/* TITLE */
+.title {
+
+    font-size: 64px;
+
+    font-weight: 600;
+
+    letter-spacing: 4px;
+}
+
+/* PRICE */
+.price {
+
+    position: absolute;
+
+    right: 0;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    font-size: 20px;
+
+    font-weight: 500;
+}
+
+/* MENU LIST */
+.menu-list {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 40px;
+
+    flex-wrap: wrap;
+}
+
+/* MENU ITEM */
+.menu-item {
+
+    text-align: center;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.menu-item:hover {
+
+    transform: scale(1.08);
+}
+
+/* IMAGE */
+.menu-item img {
+
+    width: 180px;
+
+    height: 120px;
+
+    object-fit: cover;
+
+    border-radius: 5px;
+
+    margin-bottom: 10px;
+}
+
+/* NAME */
+.menu-name {
+
+    font-size: 18px;
+}

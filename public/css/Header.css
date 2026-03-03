@@ -1,0 +1,81 @@
+/* =========================
+   HEADER PAWON DJAWA
+   Premium Transparent - Right Aligned
+========================= */
+
+.header {
+    width: 100%;
+    height: 75px;
+
+    /* Premium transparent brown */
+    background: rgba(139, 90, 60, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    display: flex;
+    align-items: center;
+
+    /* kiri lega, kanan mepet */
+    padding-left: 80px;
+    padding-right: 20px;
+
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+/* Supaya konten tidak ketutup header */
+body {
+    padding-top: 75px;
+}
+
+/* Logo */
+.header-logo img {
+    height: 46px;
+    width: auto;
+}
+
+/* Navigation */
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 45px;
+    margin-left: auto; /* dorong ke kanan maksimal */
+}
+
+.header-nav a {
+    text-decoration: none;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Premium underline animation */
+.header-nav a::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(90deg, #F3C892, #FFD9A0);
+    transition: 0.3s ease;
+    border-radius: 2px;
+}
+
+.header-nav a:hover::after {
+    width: 100%;
+}
+
+.header-nav a:hover {
+    color: #FFD9A0;
+}

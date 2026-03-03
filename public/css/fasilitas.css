@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins;
+}
+
+body {
+
+    background:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+    url("../images/image 4.png");
+
+    background-size: cover;
+    background-position: center;
+
+    min-height: 100vh;
+    color: white;
+}
+
+.container {
+
+    padding: 40px 60px;
+    text-align: center;
+}
+
+/* LOGO */
+.logo {
+
+    width: 140px;
+    cursor: pointer;
+
+    margin-bottom: 10px;
+
+    transition: 0.3s;
+}
+
+.logo:hover {
+
+    transform: scale(1.05);
+}
+
+/* TITLE */
+.title {
+
+    font-size: 36px;
+    margin-bottom: 30px;
+
+    font-weight: 600;
+}
+
+/* IMAGE */
+.fasilitas-image {
+
+    max-width: 1000px;
+    width: 100%;
+
+    border-radius: 10px;
+}
