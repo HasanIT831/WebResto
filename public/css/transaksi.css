@@ -1,158 +1,208 @@
-/* ================= BACKGROUND ================= */
+/* ================= 1. RESET & FONTS ================= */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #1a0f0a; /* Gelap lebih solid */
+    overflow-x: hidden;
+}
+
+/* ================= 2. BACKGROUND & OVERLAY ================= */
 .hero {
     position: relative;
-    height: 100vh;
+    width: 100%;
+    min-height: 100vh;
     background: url('../images/image 1.png') center/cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 20px;
 }
 
-/* Overlay coklat elegan */
 .overlay {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        rgba(70, 35, 15, 0.85),
-        rgba(130, 75, 35, 0.85)
-    );
+    inset: 0;
+    /* Gradient lebih gelap di pinggir untuk fokus ke tengah */
+    background: radial-gradient(circle, rgba(60, 30, 10, 0.7) 0%, rgba(15, 8, 4, 0.95) 100%);
+    z-index: 1;
 }
 
-/* ================= LOGO ================= */
-.logo {
-    position: absolute;
-    top: 30px;
-    left: 40px;
-    z-index: 3;
+/* ================= 3. HAPUS LOGO ================= */
+.logo, .logo img {
+    display: none !important;
 }
 
-.logo img {
-    width: 160px;
-}
-
-/* ================= CONTAINER ================= */
+/* ================= 4. CONTAINER ================= */
 .container {
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: 950px;
-    text-align: center;
+    max-width: 500px; 
+    background: rgba(255, 255, 255, 0.07); /* Lebih transparan agar elegan */
+    backdrop-filter: blur(25px); /* Blur lebih kuat untuk kesan kaca premium */
+    -webkit-backdrop-filter: blur(25px);
+    padding: 45px 35px;
+    border-radius: 35px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
 }
 
-/* ================= TITLE ================= */
+/* ================= 5. JUDUL TRANSAKSI ================= */
 .title {
     color: #ffffff;
-    font-size: 40px;
-    letter-spacing: 3px;
-    margin-bottom: 45px;
-    font-weight: 600;
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    letter-spacing: 6px; /* Spasi antar huruf lebih lebar */
+    margin-bottom: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    display: block !important;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-/* ================= FORM ================= */
+/* ================= 6. FORM FIELDS ================= */
 .form-transaksi {
     display: flex;
     flex-direction: column;
+    gap: 0; /* Tidak ada jarak antar baris */
 }
 
-/* Row layout */
+/* White box container for all form rows */
+.form-box {
+    background: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    margin-bottom: 30px;
+}
+
 .form-row {
     display: flex;
-    justify-content: center;
-    gap: 60px;
-    margin-bottom: 28px;
+    background: #ffffff;
+    border-radius: 0; /* Tidak ada border-radius individual */
+    overflow: visible;
+    height: 52px; /* Lebih tinggi agar tidak sesak */
+    align-items: center;
+    box-shadow: none; /* Hapus shadow individual */
+    border-bottom: 1px solid #f0f0f0; /* Garis tipis sebagai separator */
+    transition: background 0.2s ease;
 }
 
-/* ================= INPUT STYLE ================= */
-.form-row input,
+.form-row:last-child {
+    border-bottom: none; /* Baris terakhir tidak perlu garis */
+}
+
+.form-row:hover {
+    background: #fafafa;
+}
+
+/* Label Sisi Kiri */
 .fake-input {
-    width: 360px;
-    padding: 18px 25px;
-    border-radius: 25px;
-    font-size: 16px;
-
-    background: rgba(255, 235, 210, 0.88);
-    backdrop-filter: blur(8px);
-
-    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-}
-
-/* Input khusus */
-.form-row input {
-    border: none;
-    outline: none;
-    transition: 0.3s ease;
-}
-
-/* Fake input (label kiri tanggal) */
-.fake-input {
+    flex: 0 0 160px;
+    background: linear-gradient(135deg, #b89470 0%, #a67c52 100%); /* sedikit gradien */
+    color: #ffffff; /* Teks putih lebih kontras dan modern */
+    height: 100%;
     display: flex;
     align-items: center;
-    color: #3e2723;
-    font-weight: 500;
+    padding-left: 18px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-right: 1px solid rgba(0,0,0,0.1);
 }
 
-/* Focus effect */
+/* Input Sisi Kanan */
+.form-row input {
+    flex: 1;
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    padding: 0 18px;
+    text-align: right;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #442a1d; /* Coklat gelap untuk teks data */
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
 .form-row input:focus {
-    background: rgba(255, 220, 190, 0.95);
-    box-shadow: 0 0 0 2px #ffa726;
+    background: #fefefe !important;
+    color: #000;
 }
 
-/* Placeholder */
 .form-row input::placeholder {
-    color: #5d4037;
+    color: #999;
+    font-weight: 300;
 }
 
-/* ================= BUTTON ================= */
-.button-wrapper {
-    margin-top: 15px;
-    text-align: left;
-    margin-left: 60px;
+/* Row Khusus Total (Hijau Premium) */
+.form-row:last-of-type input {
+    color: #1b5e20 !important; /* Hijau tua yang lebih elegan */
+    font-weight: 700;
+    font-size: 17px;
+    background: rgba(255,255,255,0.8) !important;
+}
+
+/* ================= 7. TOMBOL ================= */
+.button-wrapper, .button-group {
+    margin-top: 40px !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 15px !important;
+    width: 100% !important;
+}
+
+.btn-pesan, .btn-kembali, .btn {
+    flex: 1 !important;
+    height: 50px !important;
+    border-radius: 50px !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    color: #ffffff !important;
+}
+
+.btn-kembali {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.btn-kembali:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    transform: translateY(-2px);
 }
 
 .btn-pesan {
-    padding: 14px 40px;
-    border-radius: 35px;
-    border: none;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-
-    background: linear-gradient(45deg, #ffa726, #fb8c00);
-    color: white;
-
-    box-shadow: 0 10px 25px rgba(255, 140, 0, 0.4);
-    transition: 0.3s ease;
+    background: linear-gradient(135deg, #e67e22, #d35400) !important; /* Oranye ke arah sunset cokelat */
+    box-shadow: 0 10px 20px rgba(211, 84, 0, 0.3) !important;
 }
 
 .btn-pesan:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 30px rgba(255, 140, 0, 0.6);
+    transform: translateY(-3px) !important;
+    box-shadow: 0 15px 25px rgba(211, 84, 0, 0.5) !important;
+    filter: brightness(1.1);
 }
 
-/* ================= ALERT ================= */
-.alert-success {
-    background: #4caf50;
-    color: white;
-    padding: 12px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-/* ================= RESPONSIVE ================= */
-@media(max-width: 900px) {
-    .form-row {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .button-wrapper {
-        text-align: center;
-        margin-left: 0;
-    }
-
-    .logo {
-        left: 20px;
-    }
+/* ================= 8. RESPONSIVE ================= */
+@media(max-width: 600px) {
+    .container { padding: 35px 20px; width: 90%; }
+    .fake-input { flex: 0 0 130px; font-size: 9px; }
+    .form-row input { font-size: 13px; }
+    .button-wrapper { gap: 10px !important; }
 }

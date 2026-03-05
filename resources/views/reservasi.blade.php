@@ -35,23 +35,24 @@
     <div class="content">
 
         <!-- FORM -->
-        <div class="form-box">
-<form action="{{ route('reservasi.store') }}" method="POST">
-    @csrf
+        <form action="{{ route('reservasi.store') }}" method="POST">
+            @csrf
 
-    <input type="hidden" name="menu" value="{{ $menu }}">
-    <input type="text" name="nama" placeholder="Nama" required>
-    <input type="text" name="no_tlpn" placeholder="Nomor Telephone" required>
-    <input type="time" name="waktu" required>
-    <input type="number" name="jumlah_orang" placeholder="Jumlah Orang" required>
-    <input type="date" name="tanggal" required>
+            <div class="form-box">
+                <input type="hidden" name="menu" value="{{ $menu }}">
+                <input type="text" name="nama" placeholder="Nama" required>
+                <input type="text" name="no_tlpn" placeholder="Nomor Telephone" required>
+                <label class="form-label">Jam Reservasi</label>
+                <input type="time" name="waktu" required>
+                <input type="number" name="jumlah_orang" placeholder="Jumlah Orang" required>
+                <input type="date" name="tanggal" required>
+            </div>
 
-    <button type="submit" class="btn">
-        Pesan Sekarang
-    </button>
-</form>
-
-        </div>
+            <!-- button moved below form-box -->
+            <button type="submit" class="btn">
+                Pesan Sekarang
+            </button>
+        </form>
 
         <!-- MAP -->
         <div class="map">

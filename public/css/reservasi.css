@@ -1,126 +1,158 @@
+/* ================= 1. FONTS & RESET ================= */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
-
-    background:
-    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-    url("../images/image 1.png");
-
-    background-size: cover;
-    background-position: center;
-
+    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.8)),
+                url("../images/image 1.png") center/cover no-repeat;
     height: 100vh;
-
-    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .container {
-
-    padding: 50px 80px;
+    width: 90%;
+    max-width: 400px;
+    /* Kurangi padding-top agar elemen di dalamnya naik ke atas */
+    padding: 30px 20px 40px 20px; 
+    background: rgba(45, 26, 15, 0.5); 
+    backdrop-filter: blur(15px);
+    border-radius: 30px;
+    text-align: center;
+    /* Pastikan container tidak memiliki fixed height agar tidak tumpang tindih */
+    min-height: 500px; 
 }
 
-/* LOGO */
-.logo {
-  width: 180px;
-    margin-bottom: 30px;
-    align-items: center;
-}
-
-/* TITLE */
-.title {
-
-    font-size: 36px;
-
-    margin-bottom: 30px;
-}
-
-/* CONTENT */
-.content {
-
-    display: flex;
-
-    gap: 40px;
-
-    align-items: center;
-
-    flex-wrap: wrap;
-}
-
-/* FORM */
-.form-box {
-
-    width: 400px;
-}
-
-.form-box input {
-
-    width: 100%;
-
-    padding: 15px;
-
-    margin-bottom: 20px;
-
-    border-radius: 12px;
-
-    border: none;
-
-    background: rgba(255,255,255,0.7);
-
-    font-size: 14px;
-}
-
-/* BUTTON */
-.btn {
-
-    background: orange;
-
-    border: none;
-
-    padding: 12px 25px;
-
-    border-radius: 10px;
-
-    color: white;
-
-    cursor: pointer;
-
-    font-weight: 500;
-
-    transition: 0.3s;
-}
-
-.btn:hover {
-
-    background: darkorange;
-}
-
-/* MAP */
-.map img {
-
-    width: 400px;
-
-    border-radius: 15px;
-}
-
+/* ================= 3. HEADER ================= */
 .back-button {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
 .btn-back {
-    display: inline-block;
-    padding: 8px 16px;
-    background-color: #555;
-    color: white;
+    color: #c5a47e;
     text-decoration: none;
-    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
     transition: 0.3s;
 }
 
-.btn-back:hover {
-    background-color: #333;
+/* ================= 2. TITLE (TULISAN RESERVASI) ================= */
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: #ffffff;
+    /* Perkecil margin-top agar tulisan lebih dekat ke atas container */
+    margin-top: 10px; 
+    /* Berikan margin-bottom yang pas menuju kotak putih */
+    margin-bottom: 25px; 
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+/* Garis di bawah tulisan Reservasi agar manis */
+.title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: #c5a47e;
+    margin: 10px auto 0;
+}
+
+/* ================= 3. FORM BOX (KOTAK PUTIH) ================= */
+.form-box {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    max-width: 280px;
+    /* Margin auto akan memastikan dia tetap di tengah secara horizontal */
+    margin: 0 auto 30px auto; 
+    background: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.form-box input {
+    width: 100%;
+    height: 45px; /* Turunkan sedikit tingginya agar kotak putih tidak terlalu panjang */
+    padding: 0 18px;
+    background: transparent;
+    border: none !important;
+    border-radius: 0 !important;
+    border-bottom: 1px solid #f2f2f2 !important;
+    outline: none;
+    font-size: 13px;
+}
+
+.form-label {
+    padding: 8px 0 0 18px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 !important;
+    margin-left: 0 !important;
+    line-height: 1.2;
+    text-align: left !important;
+    display: block !important;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-box input:last-child {
+    border-bottom: none !important; /* Input terakhir tidak perlu garis bawah */
+}
+
+.form-box input:focus {
+    background: #fafafa;
+}
+
+.btn {
+    display: block;
+    width: 60%; 
+    max-width: 180px; 
+    height: 40px; 
+    
+    /* GUNAKAN MARGIN TOP YANG BESAR DI SINI */
+    /* Ini akan mendorong tombol menjauh dari kotak putih */
+    margin: 30px auto 0 auto !important; 
+    
+    background: linear-gradient(135deg, #ff8c00, #e65100);
+    color: white;
+    border: none;
+    border-radius: 50px; 
+    font-size: 12px; 
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    
+    /* Pastikan tidak ada position absolute */
+    position: relative;
+    z-index: 2;
+}
+
+/* jika tombol langsung mengikuti form-box, berikan sedikit spasi tambahan */
+.form-box + .btn {
+    margin-top: 20px !important;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px rgba(230, 81, 0, 0.4);
+}
+
+/* Hidden Elements */
+.map, .logo {
+    display: none !important;
 }

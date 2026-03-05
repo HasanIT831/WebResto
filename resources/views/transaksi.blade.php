@@ -59,6 +59,8 @@
        <form action="{{ route('transaksi.store') }}" method="POST">
     @csrf
 
+            <!-- wrap inputs in a white box like reservasi -->
+            <div class="form-box">
             <!-- Row 1 - Tanggal Transaksi (dari reservasi) -->
             <div class="form-row">
                 <div class="fake-input">TANGGAL</div>
@@ -106,6 +108,7 @@
         readonly style="background-color: #e9ecef; font-weight: bold; color: #28a745;">
 </div>
 
+            </div> <!-- end form-box -->
             <div class="button-wrapper">
                 <a href="{{ url()->previous() }}" class="btn-pesan">Kembali</a>
                <button type="submit" class="btn-pesan">Pesan Sekarang</button>
