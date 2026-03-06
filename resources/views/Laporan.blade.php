@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Tentang Kami - Pawon Djawa</title>
+    <title>Laporan Transaksi - Pawon Djawa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- GOOGLE FONT -->
@@ -12,10 +12,11 @@
     <link rel="stylesheet" href="{{ asset('css/Laporan.css') }}">
 </head>
 <body>
+
 <section class="tentang-section">
 
     <!-- LOGO -->
-    <a href="{{ route('dashboard.page') }}">
+    <a href="/">
         <img src="{{ asset('images/logo.png') }}" class="logo">
     </a>
 
@@ -23,9 +24,13 @@
     <div class="title">
         LAPORAN TRANSAKSI RESERVASI
     </div>
-  <!-- SEARCH -->
+
+    <!-- SEARCH -->
     <div class="search-container">
-        <input type="text" placeholder="Cari transaksi..." class="search-input">
+        <input type="text" 
+               placeholder="Cari transaksi..." 
+               class="search-input"
+               value="{{ request('search') }}">
         <button class="search-btn">Search</button>
     </div>
 
@@ -37,35 +42,67 @@
 </section>
 
 <script>
-document.addEventListener('click', function (e) {
-    if (e.target.closest('.pagination a')) {
-        e.preventDefault();
-        let url = e.target.closest('.pagination a').getAttribute('href');
-        loadTable(url);
-    }
-});
+document.addEventListener('DOMContentLoaded', function () {
 
-function loadTable(url) {
+    const searchInput = document.querySelector('.search-input');
+    const searchBtn = document.querySelector('.search-btn');
     const container = document.getElementById('transaksi-container');
-    container.style.opacity = '0.5';
-    
-    fetch(url, {
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest'
-        }
-    })
-    .then(response => response.text())
-    .then(html => {
-        container.innerHTML = html;
-        container.style.opacity = '1';
-        // Push the new URL to address bar
-        window.history.pushState({path: url}, '', url);
-    })
-    .catch(error => {
-        console.warn('Something went wrong.', error);
-        container.style.opacity = '1';
+
+    // ===============================
+    // SEARCH BUTTON
+    // ===============================
+    searchBtn.addEventListener('click', function () {
+        let search = searchInput.value.trim();
+        let url = `?search=${encodeURIComponent(search)}`;
+        loadTable(url);
     });
-}
+
+    // ===============================
+    // ENTER KEY SEARCH
+    // ===============================
+    searchInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            searchBtn.click();
+        }
+    });
+
+    // ===============================
+    // AJAX PAGINATION
+    // ===============================
+    document.addEventListener('click', function (e) {
+        if (e.target.closest('.pagination a')) {
+            e.preventDefault();
+            let url = e.target.closest('.pagination a').getAttribute('href');
+            loadTable(url);
+        }
+    });
+
+    // ===============================
+    // LOAD TABLE FUNCTION
+    // ===============================
+    function loadTable(url) {
+        container.style.opacity = '0.5';
+
+        fetch(url, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.text())
+        .then(html => {
+            container.innerHTML = html;
+            container.style.opacity = '1';
+            window.history.pushState({path: url}, '', url);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            container.style.opacity = '1';
+        });
+    }
+
+});
 </script>
+
 </body>
 </html>
