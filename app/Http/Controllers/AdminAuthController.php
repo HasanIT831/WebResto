@@ -13,6 +13,17 @@ class AdminAuthController extends Controller
     // ================= REGISTER =================
     public function register(Request $request)
     {
+        $request->validate([
+            'username' => 'required|min:8',
+            'nama' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8'
+        ],[
+            'username.min' => 'Username minimal 8 karakter',
+            'password.min' => 'Password minimal 8 karakter',
+            'email.email' => 'Email harus menggunakan format yang benar (contoh: user@email.com)'
+        ]);
+
         User::create([
             'Username' => $request->username,
             'Nama' => $request->nama,
@@ -25,33 +36,43 @@ class AdminAuthController extends Controller
             ->with('success','Akun berhasil dibuat');
     }
 
-  public function login(Request $request)
-{
-    $credentials = [
-        'Username' => $request->Username,
-        'password' => $request->password
-    ];
+    // ================= LOGIN =================
+    public function login(Request $request)
+    {
+        $request->validate([
+            'Username' => 'required|min:8',
+            'password' => 'required|min:8'
+        ],[
+            'Username.min' => 'Username minimal 8 karakter',
+            'password.min' => 'Password minimal 8 karakter'
+        ]);
 
-    if (Auth::attempt($credentials)) {
+        $credentials = [
+            'Username' => $request->Username,
+            'password' => $request->password
+        ];
 
-        $request->session()->regenerate();
+        if (Auth::attempt($credentials)) {
 
-        $user = Auth::user();
+            $request->session()->regenerate();
 
-        if ($user->Level === 'Admin') {
-            return redirect()->route('Laporan');
+            $user = Auth::user();
+
+            if ($user->Level === 'Admin') {
+                return redirect()->route('Laporan');
+            }
+
+            return redirect()->route('dashboard.page');
         }
 
-        return redirect()->route('dashboard.page');
+        return back()->with('error', 'Username atau Password salah.');
     }
 
-    return back()->with('error', 'Username atau Password salah.');
-}
-public function logout(Request $request)
-{
-    Auth::logout();
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-    return redirect('/');
-}
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+    }
 }

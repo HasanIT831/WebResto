@@ -18,42 +18,65 @@
     <!-- Logo -->
     <img src="{{ asset('images/logo.png') }}" class="logo" alt="Logo Pawon Djawa">
 
-    <!-- Card Login -->
+    <!-- Card -->
     <div class="login-card">
         <h2>DAFTAR AKUN</h2>
 
-      <form action="{{ route('register.proses') }}" method="POST">
-    @csrf
+        <form action="{{ route('register.proses') }}" method="POST">
+        @csrf
 
-    <label>Username</label>
-    <input type="text" name="username" required>
+        <!-- Username -->
+        <label>Username</label>
+        <input type="text" name="username" value="{{ old('username') }}" required>
+        @error('username')
+            <p style="color:red; font-size:13px;">{{ $message }}</p>
+        @enderror
 
-    <label>Nama</label>
-    <input type="text" name="nama" required>
+        <!-- Nama -->
+        <label>Nama</label>
+        <input type="text" name="nama" value="{{ old('nama') }}" required>
+        @error('nama')
+            <p style="color:red; font-size:13px;">{{ $message }}</p>
+        @enderror
 
-    <label>NO Tlpn</label>
-    <input type="text" name="no_tlpn" required>
+        <!-- No Tlpn -->
+        <label>NO Tlpn</label>
+        <input type="text" name="no_tlpn" value="{{ old('no_tlpn') }}" required>
+        @error('no_tlpn')
+            <p style="color:red; font-size:13px;">{{ $message }}</p>
+        @enderror
 
-    <label>Email</label>
-    <input type="text" name="email" required>
+        <!-- Email -->
+        <label>Email</label>
+        <input type="text" name="email" value="{{ old('email') }}" required>
+        @error('email')
+            <p style="color:red; font-size:13px;">{{ $message }}</p>
+        @enderror
 
-    <label>Password</label>
-    <input type="password" name="password" id="password" required>
+        <!-- Password -->
+        <label>Password</label>
+        <input type="password" name="password" id="password" required>
+        @error('password')
+            <p style="color:red; font-size:13px;">{{ $message }}</p>
+        @enderror
 
-    <div class="options">
-        <div class="left">
-            <input type="checkbox" onclick="togglePassword()">
-            <span>Tampilkan password</span>
+        <!-- Show Password -->
+        <div class="options">
+            <div class="left">
+                <input type="checkbox" onclick="togglePassword()">
+                <span>Tampilkan password</span>
+            </div>
         </div>
-    </div>
 
-    <button type="submit" class="login-btn">DAFTAR</button>
+        <!-- Button -->
+        <button type="submit" class="login-btn">DAFTAR</button>
 
-    <p class="register">
-        Sudah punya akun?
-        <a href="{{ route('login') }}">Login</a>
-    </p>
-</form>
+        <p class="register">
+            Sudah punya akun?
+            <a href="{{ route('login') }}">Login</a>
+        </p>
+
+        </form>
     </div>
 
 </section>
