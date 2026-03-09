@@ -19,13 +19,13 @@ class adminSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
         \App\Models\User::create([
-            'Username' => 'admin',
+            'Username' => 'admin123',
             'Level' => 'Admin',
             'Nama' => 'Yudi',
             'Alamat' => 'Sidoarjo',
             'Email' => 'yudi@gmail.com',
             'No_Tlpn' => '08123456789',
-            'password' => Hash::make('admin'),
+            'password' => Hash::make('admin123'),
         ]);      
     }
 }
