@@ -82,7 +82,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/transaksi', [TransaksiController::class, 'store'])->name('transaksi.store');
     
     // LAPORAN CONTROLLER
-    Route::get('/Laporan', [LaporanController::class, 'index'])->name('Laporan');
+    Route::get('/Laporan', [LaporanController::class, 'index'])->name('laporan.index');
     Route::put('/transaksi/{id}/status', [LaporanController::class, 'updateStatus'])->name('transaksi.update-status');
     Route::delete('/transaksi/{id}', [LaporanController::class, 'destroy'])->name('transaksi.destroy');
+    Route::get('/transaksi/{id}/edit', [LaporanController::class, 'edit'])->name('transaksi.edit');
+    Route::put('/transaksi/{id}', [LaporanController::class, 'update'])->name('transaksi.update');
 });

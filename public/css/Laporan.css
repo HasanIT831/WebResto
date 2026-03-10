@@ -134,10 +134,11 @@ body {
     background-color: #c23b3b;
     color: white;
     border: none;
-    padding: 4px 8px;
+    padding: 6px 10px;
     font-size: 12px;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
+    margin-right: 5px;
 }
 
 .transaksi-table td button:hover {
@@ -149,8 +150,32 @@ body {
     padding: 6px 10px;
     border-radius: 5px;
     text-decoration: none;
-    color: black;
+    color: white;
     margin-right: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-edit:hover {
+    background-color: #a02e2e;
+}
+
+.btn-detail {
+    background-color: #b3926d;
+    padding: 6px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    margin-right: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-detail:hover {
+    background-color: #9a7a52;
 }
 
 .btn-delete {

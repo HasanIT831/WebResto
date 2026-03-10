@@ -8,7 +8,6 @@
             <th>Tanggal</th>
             <th>No Tlpn</th>
             <th>Total</th>
-            <th>Status</th>
             <th>Aktivitas</th>
         </tr>
     </thead>
@@ -23,23 +22,43 @@
             <td>{{ $transaksi->reservasi->no_tlpn }}</td>
             <td>Rp {{ number_format($transaksi->total, 0, ',', '.') }}</td>
             <td>
-                <form action="{{ route('transaksi.update-status', $transaksi->id) }}" method="POST" class="ajax-form">
-                    @csrf
-                    @method('PUT')
-                    <select name="status" onchange="this.form.submit()">
-                        <option value="proses" {{ $transaksi->status == 'proses' ? 'selected' : '' }}>Proses</option>
-                        <option value="selesai" {{ $transaksi->status == 'selesai' ? 'selected' : '' }}>Selesai</option>
-                        <option value="batal" {{ $transaksi->status == 'batal' ? 'selected' : '' }}>Batal</option>
-                    </select>
-                </form>
-            </td>
-            <td>
-                <form action="{{ route('transaksi.destroy', $transaksi->id) }}" method="POST" class="delete-form">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
-                </form>
-            </td>
+        <!-- DETAIL -->
+        <button type="button" class="btn-detail open-detail-modal" 
+                data-id="{{ $transaksi->id }}"
+                data-nama="{{ $transaksi->reservasi->nama }}"
+                data-paket="{{ $transaksi->setmenu->Nama }}"
+                data-jumlah="{{ $transaksi->reservasi->jumlah_orang }}"
+                data-waktu="{{ $transaksi->reservasi->waktu }}"
+                data-tanggal="{{ $transaksi->reservasi->tanggal }}"
+                data-no="{{ $transaksi->reservasi->no_tlpn }}"
+                data-total="{{ $transaksi->total }}"
+                data-status="{{ $transaksi->status }}">
+            Detail
+        </button>
+
+        <!-- EDIT -->
+        <button type="button" class="btn-edit open-edit-modal" 
+                data-id="{{ $transaksi->id }}"
+                data-nama="{{ $transaksi->reservasi->nama }}"
+                data-paket="{{ $transaksi->setmenu->Nama }}"
+                data-jumlah="{{ $transaksi->reservasi->jumlah_orang }}"
+                data-waktu="{{ $transaksi->reservasi->waktu }}"
+                data-tanggal="{{ $transaksi->reservasi->tanggal }}"
+                data-no="{{ $transaksi->reservasi->no_tlpn }}"
+                data-total="{{ $transaksi->total }}"
+                data-status="{{ $transaksi->status }}">
+            Edit
+        </button>
+
+        <!-- HAPUS -->
+        <form action="{{ route('transaksi.destroy', $transaksi->id) }}" method="POST" class="delete-form" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" onclick="return confirm('Yakin ingin menghapus?')" class="btn-delete">
+                Hapus
+            </button>
+        </form>
+    </td>
         </tr>
         @endforeach
     </tbody>
@@ -54,3 +73,36 @@
         </tr>
     </tfoot>
 </table>
+
+<script>
+document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.open-edit-modal');
+    if (btn) {
+        e.preventDefault();
+        
+        // Ambil data dari atribut tombol
+        const id = btn.dataset.id;
+        
+        // Masukkan ke input modal
+        document.getElementById('modal_transaksi_id').value = id;
+        document.getElementById('modal_nama').value = btn.dataset.nama;
+        document.getElementById('modal_waktu').value = btn.dataset.waktu;
+        document.getElementById('modal_tanggal').value = btn.dataset.tanggal;
+        document.getElementById('modal_no').value = btn.dataset.no;
+        document.getElementById('modal_status').value = btn.dataset.status;
+
+        // Jika kamu ingin menampilkan Paket & Jumlah di modal edit (opsional)
+        // pastikan ID-nya ada di HTML modalmu
+        if(document.getElementById('modal_paket')) {
+            document.getElementById('modal_paket').value = btn.dataset.paket;
+        }
+
+        // Set Action Form ke Route Update
+        document.getElementById('editTransaksiForm').action = '/transaksi/' + id;
+
+        // Munculkan Modal
+        document.getElementById('editTransaksiModal').style.display = 'block';
+    }
+});
+</script>
+
