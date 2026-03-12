@@ -59,7 +59,7 @@ class AdminAuthController extends Controller
             $user = Auth::user();
 
             if ($user->Level === 'Admin') {
-                return redirect()->route('Laporan');
+                return redirect()->route('laporan.index');
             }
 
             return redirect()->route('dashboard.page');

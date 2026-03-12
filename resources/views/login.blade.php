@@ -40,7 +40,7 @@
             <input type="checkbox" onclick="togglePassword()">
             <span>Tampilkan password</span>
         </div>
-        <a href="#" class="forgot">Lupa password?</a>
+        
     </div>
 
     <button type="submit" class="login-btn">LOGIN</button>

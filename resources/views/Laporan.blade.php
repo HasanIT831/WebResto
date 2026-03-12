@@ -11,111 +11,92 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     
     <style>
-        body { font-family: 'Poppins', sans-serif; background-color: #f4f4f4; }
-        
-        /* Kontainer Tabel Utama */
-        .table-container {
-            background: white; border-radius: 8px; margin: 0 20px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); overflow-x: auto;
-        }
-
-        .table { margin-bottom: 0; min-width: 1050px; table-layout: fixed; }
-        .table thead tr { background-color: #c04848 !important; color: white; }
-        .table th, .table td { vertical-align: middle !important; font-size: 13px; padding: 12px 8px !important; }
-
-        /* Pengaturan Kolom Tabel Utama */
-        .col-nama { width: 140px; } .col-paket { width: 140px; } .col-jml { width: 70px; }
-        .col-waktu { width: 85px; } .col-tgl { width: 105px; } .col-telp { width: 120px; }
-        .col-total { width: 120px; } .col-status { width: 90px; } .col-aksi { width: 190px; }
-
-        .table-pagination { display: flex; align-items: center; justify-content: flex-end; padding: 10px 20px; background: #f9f9f9; }
-        .page-link { color: #c04848; }
-        .page-item.active .page-link { background-color: #c04848; border-color: #c04848; }
-
-        /* Search Bar Style */
-        .search-container { margin: 0 20px 20px 20px; display: flex; justify-content: flex-end; }
-        .search-input { border-radius: 20px 0 0 20px; border: 1px solid #ddd; padding: 5px 20px; outline: none; }
-        .search-button { border-radius: 0 20px 20px 0; background: #c04848; color: white; border: none; padding: 5px 20px; }
-
-        /* Modal Settings */
         @keyframes modalFadeIn {
             0% { opacity: 0; transform: translate(-50%, -60%) scale(0.8); }
             100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 9999; }
-        .modal-dialog-centered { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 450px; }
-
-        /* Scroll Area khusus Detail Modal */
-        .modal-detail-scroll {
-            max-width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            border-radius: 8px;
+        
+        .modal {
+            display: none; 
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
         }
 
-        .table-modal-detail {
-            min-width: 350px;
-            width: 100%;
-            margin-bottom: 0;
-            background: white;
+        .modal-dialog-centered {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
+            width: 90%;
+            max-width: 450px;
         }
 
-        .table-modal-detail td {
-            white-space: nowrap;
-            font-size: 14px;
-        }
-
-        .label-cell {
-            background: #bc9c75 !important;
+        .table-container thead tr {
+            background-color: #c04848 !important;
             color: white;
-            width: 120px;
-            font-weight: 600;
         }
+
+        .aksi-kolom {
+            white-space: nowrap;
+        }
+
+        input:focus, select:focus { outline: none !important; box-shadow: none !important; }
     </style>
 </head>
 <body>
 
-<section class="tentang-section" style="padding: 30px 0;">
+<section class="tentang-section">
     <div style="text-align: center; margin-bottom: 20px;">
-        <a href="/"><img src="{{ asset('images/logo.png') }}" style="max-height: 70px;"></a>
-        <h2 style="font-weight: 600; color: #c04848; font-size: 22px; margin-top: 10px;">LAPORAN TRANSAKSI</h2>
+        <a href="/">
+            <img src="{{ asset('images/logo.png') }}" class="logo" style="max-height: 80px;">
+        </a>
     </div>
 
-    <div class="search-container">
-        <form action="{{ route('laporan.index') }}" method="GET" class="d-flex">
-            <input type="text" name="search" class="search-input" placeholder="Cari nama pelanggan..." value="{{ request('search') }}">
-            <button type="submit" class="search-button">Cari</button>
+    <div class="title" style="text-align: center; font-weight: 600; font-size: 24px; margin-bottom: 30px; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+        LAPORAN TRANSAKSI RESERVASI
+    </div>
+
+    <div class="search-container" style="display: flex; justify-content: flex-end; margin-bottom: 20px; padding-right: 20px;">
+        <form action="{{ route('laporan.index') }}" method="GET" style="display: flex; gap: 5px;">
+            <input type="text" name="search" placeholder="Cari transaksi..." class="search-input" value="{{ request('search') }}" style="padding: 8px 15px; border-radius: 4px; border: 1px solid #ccc;">
+            <button type="submit" class="btn" style="background-color: #c04848; color: white;">Search</button>
         </form>
     </div>
 
-    <div class="table-container">
-        <table class="table text-center">
+    <div class="table-container" style="background: white; border-radius: 8px; overflow: auto; margin: 0 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+        <table class="table text-center" style="margin-bottom: 0;">
             <thead>
                 <tr>
-                    <th class="col-nama">Nama</th>
-                    <th class="col-paket">Paket</th>
-                    <th class="col-jml">Orang</th>
-                    <th class="col-waktu">Waktu</th>
-                    <th class="col-tgl">Tanggal</th>
-                    <th class="col-telp">No Tlpn</th>
-                    <th class="col-total">Total</th>
-                    <th class="col-status">Status</th>
-                    <th class="col-aksi">Aksi</th>
+                    <th>Nama</th>
+                    <th>Paket</th>
+                    <th>Jumlah Orang</th>
+                    <th>Waktu</th>
+                    <th>Tanggal</th>
+                    <th>No Tlpn</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Aktivitas</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($transaksis as $t)
                 <tr>
-                    <td class="text-left"><strong>{{ $t->reservasi->nama ?? '-' }}</strong></td>
+                    <td>{{ $t->reservasi->nama ?? '-' }}</td>
                     <td>{{ $t->setmenu->Nama ?? '-' }}</td>
                     <td>{{ $t->reservasi->jumlah_orang ?? '-' }}</td>
                     <td>{{ $t->reservasi->waktu ?? '-' }}</td>
                     <td>{{ $t->reservasi->tanggal ?? '-' }}</td>
                     <td>{{ $t->reservasi->no_tlpn ?? '-' }}</td>
                     <td>Rp {{ number_format($t->total, 0, ',', '.') }}</td>
-                    <td><span class="badge badge-info">{{ ucfirst($t->status) }}</span></td>
                     <td>
-                        <button class="btn btn-sm btn-info open-detail-modal" 
+                        <span class="badge badge-info">{{ ucfirst($t->status) }}</span>
+                    </td>
+                    <td class="aksi-kolom">
+                        <button class="btn btn-sm btn-danger open-detail-modal" 
                                 data-nama="{{ $t->reservasi->nama ?? '' }}" 
                                 data-paket="{{ $t->setmenu->Nama ?? '' }}" 
                                 data-jumlah="{{ $t->reservasi->jumlah_orang ?? '' }}"
@@ -125,7 +106,7 @@
                                 data-total="{{ $t->total }}"
                                 data-status="{{ $t->status }}">Detail</button>
                         
-                        <button class="btn btn-sm btn-warning open-edit-modal"
+                        <button class="btn btn-sm btn-danger open-edit-modal"
                                 data-id="{{ $t->id }}"
                                 data-nama="{{ $t->reservasi->nama ?? '' }}"
                                 data-waktu="{{ $t->reservasi->waktu ?? '' }}"
@@ -135,89 +116,83 @@
                         
                         <form action="/transaksi/{{ $t->id }}" method="POST" style="display:inline;">
                             @csrf @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Hapus?')">Hapus</button>
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Hapus data?')">Hapus</button>
                         </form>
                     </td>
                 </tr>
                 @empty
-                <tr><td colspan="9" class="py-4">Data tidak ditemukan.</td></tr>
+                <tr>
+                    <td colspan="9">Data tidak ditemukan.</td>
+                </tr>
                 @endforelse
             </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="9" style="padding: 0 !important;">
-                        <div class="table-pagination">
-                            <span style="color: #666; font-size: 12px; margin-right: 15px;">Halaman {{ $transaksis->currentPage() }} dari {{ $transaksis->lastPage() }}</span>
-                            {{ $transaksis->appends(request()->query())->links('pagination::bootstrap-4') }}
-                        </div>
-                    </td>
-                </tr>
-            </tfoot>
         </table>
     </div>
-</section>
+     <div class="text-center mt-3">
+    {{ $transaksis->links('pagination::bootstrap-4') }}
+</div>
 
-<div id="detailTransaksiModal" class="modal">
-    <div class="modal-dialog-centered">
-        <div class="modal-content" style="border-radius:12px; overflow: hidden; animation: modalFadeIn 0.3s ease;">
-            <div class="modal-header" style="background: #bc9c75; color: white; justify-content: center; border-bottom: none;">
-                <h5 style="margin:0; font-size:16px; font-weight: 600;">DETAIL TRANSAKSI</h5>
-            </div>
-            <div class="modal-body" style="background:#faf8f5;">
-                <div class="modal-detail-scroll">
-                    <table class="table table-bordered table-modal-detail">
+    <div id="detailTransaksiModal" class="modal">
+        <div class="modal-dialog-centered">
+            <div class="modal-content" style="border-radius:12px; border:none; animation: modalFadeIn 0.3s ease; overflow: hidden;">
+                <div class="modal-header" style="background: #bc9c75; padding:15px; display:flex; justify-content:center; border:none;">
+                    <h5 style="color:#fff; margin:0; font-size:16px; font-weight:600;">DETAIL TRANSAKSI</h5>
+                </div>
+                <div class="modal-body" style="background:#faf8f5; padding:20px;">
+                    <table class="table table-bordered bg-white" style="margin-bottom:0;">
                         <tbody>
-                            <tr><td class="label-cell">NAMA</td><td id="detail_nama"></td></tr>
-                            <tr><td class="label-cell">PAKET</td><td id="detail_paket"></td></tr>
-                            <tr><td class="label-cell">JUMLAH</td><td id="detail_jumlah"></td></tr>
-                            <tr><td class="label-cell">WAKTU</td><td id="detail_waktu"></td></tr>
-                            <tr><td class="label-cell">TANGGAL</td><td id="detail_tanggal"></td></tr>
-                            <tr><td class="label-cell">TOTAL</td><td id="detail_total" style="font-weight:bold; color: #c04848;"></td></tr>
-                            <tr><td class="label-cell" style="background:#d4a574 !important;">STATUS</td><td id="detail_status"></td></tr>
+                            <tr><td style="background:#bc9c75; color:white; width:40%; font-size:12px; font-weight:bold;">NAMA</td><td id="detail_nama"></td></tr>
+                            <tr><td style="background:#bc9c75; color:white; font-size:12px; font-weight:bold;">PAKET</td><td id="detail_paket"></td></tr>
+                            <tr><td style="background:#bc9c75; color:white; font-size:12px; font-weight:bold;">JUMLAH</td><td id="detail_jumlah"></td></tr>
+                            <tr><td style="background:#bc9c75; color:white; font-size:12px; font-weight:bold;">WAKTU</td><td id="detail_waktu"></td></tr>
+                            <tr><td style="background:#bc9c75; color:white; font-size:12px; font-weight:bold;">TANGGAL</td><td id="detail_tanggal"></td></tr>
+                            <tr><td style="background:#bc9c75; color:white; font-size:12px; font-weight:bold;">NO TELP</td><td id="detail_no"></td></tr>
+                            <tr><td style="background:#bc9c75; color:white; font-size:12px; font-weight:bold;">TOTAL</td><td id="detail_total" style="font-weight:bold;"></td></tr>
+                            <tr><td style="background:#d4a574; color:white; font-size:12px; font-weight:bold;">STATUS</td><td id="detail_status" style="font-weight:bold; text-transform:uppercase;"></td></tr>
                         </tbody>
                     </table>
-                </div>
-                <p class="text-muted text-center mt-2" style="font-size: 10px;">*Geser ke kanan untuk melihat rincian lengkap</p>
-                <div class="text-center mt-3">
-                    <button type="button" class="btn btn-outline-secondary btn-tutup-modal" style="border-radius: 20px; padding: 5px 30px;">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="editTransaksiModal" class="modal">
-    <div class="modal-dialog-centered">
-        <div class="modal-content" style="border-radius:12px; overflow: hidden; animation: modalFadeIn 0.3s ease;">
-            <div class="modal-header" style="background: #bc9c75; color: white; justify-content: center;">
-                <h5 style="margin:0; font-size:16px;">EDIT TRANSAKSI</h5>
-            </div>
-            <div class="modal-body" style="background:#faf8f5;">
-                <form id="editTransaksiForm" method="POST">
-                    @csrf @method('PUT')
-                    <div class="form-group"><label class="small font-weight-bold">Nama</label><input type="text" name="nama" id="modal_nama" class="form-control"></div>
-                    <div class="row">
-                        <div class="col-6"><div class="form-group"><label class="small font-weight-bold">Waktu</label><input type="text" name="waktu" id="modal_waktu" class="form-control"></div></div>
-                        <div class="col-6"><div class="form-group"><label class="small font-weight-bold">Tanggal</label><input type="date" name="tanggal" id="modal_tanggal" class="form-control"></div></div>
-                    </div>
-                    <div class="form-group"><label class="small font-weight-bold">No Tlpn</label><input type="text" name="no_tlpn" id="modal_no" class="form-control"></div>
-                    <div class="form-group">
-                        <label class="small font-weight-bold">Status</label>
-                        <select name="status" id="modal_status" class="form-control">
-                            <option value="proses">Proses</option>
-                            <option value="selesai">Selesai</option>
-                            <option value="batal">Batal</option>
-                        </select>
-                    </div>
                     <div class="text-center mt-3">
-                        <button type="button" class="btn btn-outline-secondary btn-tutup-modal" style="border-radius: 20px;">Batal</button>
-                        <button type="submit" class="btn btn-warning" style="border-radius: 20px; background: #c04848; color: white; border: none;">Simpan</button>
+                        <button type="button" class="btn btn-tutup-modal" style="border:1px solid #bc9c75; color:#bc9c75; background:white; padding:5px 30px; border-radius:5px;">Tutup</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    <div id="editTransaksiModal" class="modal">
+        <div class="modal-dialog-centered">
+            <div class="modal-content" style="border-radius:12px; border:none; animation: modalFadeIn 0.3s ease; overflow: hidden;">
+                <div class="modal-header" style="background: #bc9c75; padding:15px; display:flex; justify-content:center; border:none;">
+                    <h5 style="color:#fff; margin:0; font-size:16px; font-weight:600;">EDIT TRANSAKSI</h5>
+                </div>
+                <div class="modal-body" style="background:#faf8f5; padding:20px;">
+                    <form id="editTransaksiForm" method="POST">
+                        @csrf @method('PUT')
+                        <table class="table table-bordered bg-white" style="margin-bottom:0;">
+                            <tbody>
+                                <tr><td style="background:#bc9c75; color:white; font-size:12px; font-weight:bold;">NAMA</td><td><input type="text" name="nama" id="modal_nama" class="form-control" ></td></tr>
+                                <tr><td style="background:#bc9c75; color:white; font-size:12px; font-weight:bold;">WAKTU</td><td><input type="text" name="waktu" id="modal_waktu" class="form-control"></td></tr>
+                                <tr><td style="background:#bc9c75; color:white; font-size:12px; font-weight:bold;">TANGGAL</td><td><input type="date" name="tanggal" id="modal_tanggal" class="form-control"></td></tr>
+                                <tr><td style="background:#bc9c75; color:white; font-size:12px; font-weight:bold;">NO TELP</td><td><input type="text" name="no_tlpn" id="modal_no" class="form-control"></td></tr>
+                                <tr><td style="background:#d4a574; color:white; font-size:12px; font-weight:bold;">STATUS</td><td>
+                                    <select name="status" id="modal_status" class="form-control">
+                                        <option value="proses">Proses</option>
+                                        <option value="selesai">Selesai</option>
+                                        <option value="batal">Batal</option>
+                                    </select>
+                                </td></tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center mt-3" style="display:flex; justify-content:center; gap:10px;">
+                            <button type="button" class="btn btn-tutup-modal" style="border:1px solid #bc9c75; color:#bc9c75; background:white; padding:5px 25px; border-radius:5px;">Tutup</button>
+                            <button type="submit" class="btn" style="background:#ff6b35; color:white; padding:5px 25px; border-radius:5px;">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -225,19 +200,23 @@ document.addEventListener('DOMContentLoaded', function () {
     const detailModal = document.getElementById('detailTransaksiModal');
 
     document.querySelectorAll('.btn-tutup-modal').forEach(btn => {
-        btn.onclick = () => { editModal.style.display = 'none'; detailModal.style.display = 'none'; }
+        btn.onclick = () => {
+            editModal.style.display = 'none';
+            detailModal.style.display = 'none';
+        }
     });
 
     document.querySelectorAll('.open-detail-modal').forEach(btn => {
         btn.onclick = function() {
             document.getElementById('detail_nama').innerText = this.dataset.nama;
             document.getElementById('detail_paket').innerText = this.dataset.paket;
-            document.getElementById('detail_jumlah').innerText = this.dataset.jumlah + ' Orang';
+            document.getElementById('detail_jumlah').innerText = this.dataset.jumlah;
             document.getElementById('detail_waktu').innerText = this.dataset.waktu;
             document.getElementById('detail_tanggal').innerText = this.dataset.tanggal;
+            document.getElementById('detail_no').innerText = this.dataset.no;
             const total = parseInt(this.dataset.total) || 0;
             document.getElementById('detail_total').innerText = 'Rp ' + total.toLocaleString('id-ID');
-            document.getElementById('detail_status').innerText = this.dataset.status.toUpperCase();
+            document.getElementById('detail_status').innerText = this.dataset.status;
             detailModal.style.display = 'block';
         }
     });
