@@ -66,30 +66,36 @@ class LaporanController extends Controller
         return view('edit_transaksi', compact('transaksi'));
     }
 
-    // update full transaksi record (used by modal form)
-    public function update(Request $request, $id)
-    {
-        $transaksi = Transaksi::findOrFail($id);
-        
-        // Update Reservasi data
-        $reservasi = $transaksi->reservasi;
-        $reservasiData = $request->validate([
-            'waktu' => 'required',
-            'tanggal' => 'required',
-            'no_telp' => 'required|string|max:15',
-        ]);
-        $reservasi->update($reservasiData);
-        
-        // Update Transaksi data
-        $transaksiData = $request->validate([
-            'status' => 'required|in:proses,selesai,batal',
-        ]);
-        $transaksi->update($transaksiData);
+   // update full transaksi record (used by modal form)
+public function update(Request $request, $id)
+{
+    $transaksi = Transaksi::findOrFail($id);
+    
+    // Update Reservasi data
+    $reservasi = $transaksi->reservasi;
+    $reservasiData = $request->validate([
+        'nama' => 'required|string|max:255',
+        'waktu' => 'required',
+        'tanggal' => 'required',
+        'no_tlpn' => 'required|string|max:15',
+    ]);
+    $reservasi->update($reservasiData);
+    
+    // Update Transaksi data
+    $transaksiData = $request->validate([
+        'status' => 'required|in:proses,selesai,batal',
+    ]);
+    $transaksi->update($transaksiData);
 
-        // Return JSON response for AJAX
+    // Untuk AJAX request
+    if ($request->ajax()) {
         return response()->json([
             'success' => true,
             'message' => 'Transaksi berhasil diperbarui'
         ]);
     }
+    
+    // Untuk non-AJAX request (redirect back ke halaman laporan)
+    return redirect()->route('laporan.index')->with('success', 'Transaksi berhasil diperbarui');
+}
 }
