@@ -17,20 +17,19 @@ class LaporanController extends Controller
             $search = $request->search;
 
             $query->where(function ($q) use ($search) {
-                $q->where('id', 'like', "%$search%")
-                  ->orWhere('status', 'like', "%$search%");
-            })
-            ->orWhereHas('reservasi', function ($q) use ($search) {
-                $q->where('nama', 'like', "%$search%")
-                  ->orWhere('no_tlpn', 'like', "%$search%")
-                  ->orWhere('waktu', 'like', "%$search%")
-                  ->orWhere('jumlah_orang', 'like', "%$search%")
-                  ->orWhere('tanggal', 'like', "%$search%");
-            })
-            ->orWhereHas('setmenu', function ($q) use ($search) {
-                $q->where('Nama', 'like', "%$search%")
-                  ->orWhere('Harga', 'like', "%$search%")
-                  ->orWhere('Makanan', 'like', "%$search%");
+                // Filter berdasarkan Status di tabel Transaksi
+                $q->where('status', 'like', "%$search%")
+                
+                // Filter berdasarkan Nama dan No Telepon di tabel Reservasi
+                ->orWhereHas('reservasi', function ($q) use ($search) {
+                    $q->where('nama', 'like', "%$search%")
+                      ->orWhere('no_tlpn', 'like', "%$search%");
+                })
+                
+                // Filter berdasarkan Nama Paket di tabel SetMenu
+                ->orWhereHas('setmenu', function ($q) use ($search) {
+                    $q->where('Nama', 'like', "%$search%");
+                });
             });
         }
 
@@ -66,36 +65,30 @@ class LaporanController extends Controller
         return view('edit_transaksi', compact('transaksi'));
     }
 
-   // update full transaksi record (used by modal form)
-public function update(Request $request, $id)
-{
-    $transaksi = Transaksi::findOrFail($id);
-    
-    // Update Reservasi data
-    $reservasi = $transaksi->reservasi;
-    $reservasiData = $request->validate([
-        'nama' => 'required|string|max:255',
-        'waktu' => 'required',
-        'tanggal' => 'required',
-        'no_tlpn' => 'required|string|max:15',
-    ]);
-    $reservasi->update($reservasiData);
-    
-    // Update Transaksi data
-    $transaksiData = $request->validate([
-        'status' => 'required|in:proses,selesai,batal',
-    ]);
-    $transaksi->update($transaksiData);
-
-    // Untuk AJAX request
-    if ($request->ajax()) {
-        return response()->json([
-            'success' => true,
-            'message' => 'Transaksi berhasil diperbarui'
+    public function update(Request $request, $id)
+    {
+        $transaksi = Transaksi::findOrFail($id);
+        
+        $reservasiData = $request->validate([
+            'nama' => 'required|string|max:255',
+            'waktu' => 'required',
+            'tanggal' => 'required',
+            'no_tlpn' => 'required|string|max:15',
         ]);
+        $transaksi->reservasi->update($reservasiData);
+        
+        $transaksiData = $request->validate([
+            'status' => 'required|in:proses,selesai,batal',
+        ]);
+        $transaksi->update($transaksiData);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Transaksi berhasil diperbarui'
+            ]);
+        }
+        
+        return redirect()->route('laporan.index')->with('success', 'Transaksi berhasil diperbarui');
     }
-    
-    // Untuk non-AJAX request (redirect back ke halaman laporan)
-    return redirect()->route('laporan.index')->with('success', 'Transaksi berhasil diperbarui');
-}
 }
