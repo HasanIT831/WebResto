@@ -26,10 +26,16 @@
     @csrf
 
     <label>Username</label>
-    <input type="text" name="Username" required>
+    <input type="text" name="Username" value="{{ old('Username') }}" required>
+    @error('Username')
+        <p style="color:red; font-size:13px;">{{ $message }}</p>
+    @enderror
 
     <label>Password</label>
     <input type="password" name="password" id="password" required>
+    @error('password')
+        <p style="color:red; font-size:13px;">{{ $message }}</p>
+    @enderror
 
     @if(session('error'))
         <p style="color:red;">{{ session('error') }}</p>

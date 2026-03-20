@@ -15,19 +15,22 @@ class AdminAuthController extends Controller
     {
         $request->validate([
             'username' => 'required|min:8',
+            'no_tlpn' => 'required',
             'nama' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:8'
         ],[
             'username.min' => 'Username minimal 8 karakter',
             'password.min' => 'Password minimal 8 karakter',
-            'email.email' => 'Email harus menggunakan format yang benar (contoh: user@email.com)'
+            'email.email' => 'Email harus menggunakan format yang benar (contoh: user@email.com)',
+            'no_tlpn.required' => 'Nomor Telepon wajib diisi'
         ]);
 
         User::create([
             'Username' => $request->username,
             'Nama' => $request->nama,
             'Email' => $request->email,
+            'No_Tlpn' => $request->no_tlpn,
             'password' => Hash::make($request->password),
             'Level' => 'Publik'
         ]);
@@ -40,11 +43,8 @@ class AdminAuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'Username' => 'required|min:8',
-            'password' => 'required|min:8'
-        ],[
-            'Username.min' => 'Username minimal 8 karakter',
-            'password.min' => 'Password minimal 8 karakter'
+            'Username' => 'required',
+            'password' => 'required'
         ]);
 
         $credentials = [
@@ -59,7 +59,7 @@ class AdminAuthController extends Controller
             $user = Auth::user();
 
             if ($user->Level === 'Admin') {
-                return redirect()->route('Laporan');
+                return redirect()->route('laporan.index');
             }
 
             return redirect()->route('dashboard.page');

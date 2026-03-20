@@ -7,25 +7,19 @@
 
 body {
     background-color: black;
-    overflow: hidden;
-    /* Prevent page scrolling */
+    overflow: hidden; /* Prevent page scrolling */
 }
 
 .tentang-section {
-
     min-height: 100vh;
-
     background:
         linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
         url("../images/image 1.png");
-
     background-size: cover;
     background-position: center;
-
     display: flex;
     flex-direction: column;
     align-items: center;
-
     padding-top: 20px;
     padding-bottom: 10px;
     color: white;
@@ -33,32 +27,39 @@ body {
 
 /* LOGO */
 .logo {
-
     width: 100px;
     margin-bottom: 5px;
-
     cursor: pointer;
-
     transition: 0.3s;
 }
 
 .logo:hover {
-
     transform: scale(1.05);
 }
 
 /* TITLE */
 .title {
-
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 5px;
+    text-align: center;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .search-container {
     width: 95%;
     margin: 10px auto;
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+    margin-bottom: 20px;
+}
+
+.search-form {
+    display: flex;
+    gap: 5px;
 }
 
 .search-input {
@@ -72,30 +73,41 @@ body {
 .search-btn {
     padding: 8px 15px;
     border: none;
-    background-color: #c23b3b;
+    background-color: #c04848;
     color: white;
     border-radius: 6px;
     cursor: pointer;
 }
 
-.table-container {
+.table-wrapper {
     width: 95%;
     margin: 10px auto;
-    max-height: 55vh;
-    /* Fixed height for table */
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 8px 8px 0 0; /* Only round top corners since pagination is below */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.table-container thead tr {
+    background-color: #c04848 !important;
+    color: white;
+}
+
+.table-scroll-wrapper {
+    max-height: 48vh; /* Dikurangi agar pagination di bawah tetap terlihat */
     overflow-y: auto;
     overflow-x: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    background-color: white;
 }
 
 .transaksi-table {
     width: 100%;
     border-collapse: collapse;
     background-color: white;
-    font-size: 13px;
-    /* Smaller font */
+    font-size: 11px;
 }
 
 .transaksi-table thead {
@@ -105,16 +117,15 @@ body {
 }
 
 .transaksi-table th {
-    background-color: #c23b3b;
+    background-color: #c04848;
     color: white;
-    padding: 8px 5px;
-    /* Smaller padding */
+    padding: 8px 5px; /* Match td padding so header aligns with data */
     font-weight: 600;
+    text-align: center; /* Ensure header labels align with centered data */
 }
 
 .transaksi-table td {
-    padding: 6px 4px;
-    /* Smaller padding */
+    padding: 8px 5px; /* Standardize cell padding so data visually matches headers better */
     border-bottom: 1px solid #eee;
     text-align: center;
     color: #333;
@@ -145,32 +156,16 @@ body {
     background-color: #a02e2e;
 }
 
-.btn-edit {
-    background-color: #c23b3b;
-    padding: 6px 10px;
-    border-radius: 5px;
-    text-decoration: none;
-    color: white;
-    margin-right: 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 12px;
-}
-
-.btn-edit:hover {
-    background-color: #a02e2e;
-}
-
 .btn-detail {
     background-color: #b3926d;
-    padding: 6px 10px;
-    border-radius: 5px;
+    padding: 5px 10px;
+    border-radius: 4px;
     text-decoration: none;
     color: white;
-    margin-right: 5px;
+    margin-right: 3px;
     border: none;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 11px;
     transition: background-color 0.3s ease;
 }
 
@@ -178,48 +173,81 @@ body {
     background-color: #9a7a52;
 }
 
+.btn-edit {
+    background-color: #c23b3b;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    margin-right: 3px;
+    border: none;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.btn-edit:hover {
+    background-color: #a02e2e;
+}
+
 .btn-delete {
     background-color: #c23b3b;
-    padding: 6px 10px;
-    border-radius: 5px;
+    padding: 5px 10px;
+    border-radius: 4px;
     text-decoration: none;
-    color: black;
-    margin-right: 5px;
+    color: white;
+    margin-right: 0;
+    border: none;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.btn-delete:hover {
+    background-color: #a02e2e;
 }
 
 .transaksi-table tfoot td {
-    position: sticky;
-    bottom: 0;
+    /* Removed sticky — pagination is now outside table */
     background-color: #f9f9f9;
-    z-index: 20;
     border-top: 2px solid #ddd;
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .table-pagination {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    padding: 12px 0;
+    padding: 10px 15px;
     width: 100%;
+    background-color: #f9f9f9;
+    border-radius: 0 0 8px 8px; /* Only round bottom corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    gap: 5px;
+}
+
+.pagination-label {
+    color: #666;
+    font-size: 12px;
+    margin-right: 15px;
 }
 
 .table-pagination .pagination {
     display: flex;
+    flex-wrap: wrap; /* Allow wrapping if there are too many pages */
+    justify-content: center;
     list-style: none;
     padding: 0;
     margin: 0;
-    gap: 8px;
+    gap: 5px; /* Slightly tighter gap to fit more links */
 }
 
 .table-pagination .page-item .page-link {
     color: #c23b3b;
-    padding: 6px 14px;
+    padding: 4px 9px; /* Smaller buttons */
     text-decoration: none;
     border: 1px solid #ddd;
     border-radius: 4px;
     background-color: white;
-    font-size: 14px;
+    font-size: 12px; /* Smaller font too */
     transition: 0.3s;
 }
 
@@ -237,4 +265,127 @@ body {
 .table-pagination .page-link:hover:not(.disabled) {
     background-color: #fcebeb;
     border-color: #c23b3b;
+}
+
+/* MODAL */
+@keyframes modalFadeIn {
+    0% { opacity: 0; transform: translate(-50%, -60%) scale(0.8); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.modal {
+    display: none !important; /* Will be toggled by JS style.display */
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(4px) !important;
+    z-index: 9999 !important;
+}
+
+/* State for showing modal */
+.modal-show {
+    display: block !important;
+}
+
+.modal-dialog-centered {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    width: 90% !important;
+    max-width: 450px !important;
+}
+
+.modal-content {
+    border-radius: 12px !important;
+    border: none !important;
+    animation: modalFadeIn 0.3s ease !important;
+    overflow: hidden !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
+}
+
+.modal-header {
+    background: #bc9c75 !important;
+    padding: 15px !important;
+    display: flex !important;
+    justify-content: center !important;
+    border: none !important;
+}
+
+.modal-header h5 {
+    color: #fff !important;
+    margin: 0 !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+}
+
+.modal-body {
+    background: #faf8f5 !important;
+    padding: 20px !important;
+}
+
+.modal-body table td {
+    background: white !important;
+    vertical-align: middle !important;
+    border: 1px solid #dee2e6 !important;
+    color: #333 !important;
+}
+
+.modal-label {
+    background: #bc9c75 !important;
+    color: white !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    width: 40% !important;
+}
+
+.modal-label-alt {
+    background: #d4a574 !important;
+    color: white !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+}
+
+.btn-tutup-modal {
+    border: 1px solid #bc9c75 !important;
+    color: #bc9c75 !important;
+    background: white !important;
+    padding: 5px 30px !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    font-weight: 500 !important;
+}
+
+.btn-tutup-modal:hover {
+    background: #fdfaf5 !important;
+}
+
+.btn-simpan {
+    background: #ff6b35 !important;
+    color: white !important;
+    padding: 5px 25px !important;
+    border-radius: 5px !important;
+    border: none !important;
+    cursor: pointer !important;
+    font-weight: 500 !important;
+}
+
+.modal-footer-btns {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* GLOBAL FOCUS */
+input:focus, select:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.aksi-kolom {
+    white-space: nowrap;
 }

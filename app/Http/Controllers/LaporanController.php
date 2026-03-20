@@ -34,11 +34,10 @@ class LaporanController extends Controller
             });
         }
 
-        $transaksis = $query->paginate(10)->withQueryString();
-
-        if ($request->ajax()) {
-            return view('partials.transaksi_table', compact('transaksis'))->render();
-        }
+        // Ensure newest data is shown first
+        $query->orderByDesc('id');
+        
+        $transaksis = $query->paginate(8)->onEachSide(10)->withQueryString();
 
         return view('Laporan', compact('transaksis'));
     }
@@ -74,9 +73,9 @@ class LaporanController extends Controller
         // Update Reservasi data
         $reservasi = $transaksi->reservasi;
         $reservasiData = $request->validate([
-            'waktu' => 'required',
+            'waktu'   => 'required',
             'tanggal' => 'required',
-            'no_telp' => 'required|string|max:15',
+            'no_tlpn' => 'required|string|max:15',
         ]);
         $reservasi->update($reservasiData);
         
@@ -86,10 +85,6 @@ class LaporanController extends Controller
         ]);
         $transaksi->update($transaksiData);
 
-        // Return JSON response for AJAX
-        return response()->json([
-            'success' => true,
-            'message' => 'Transaksi berhasil diperbarui'
-        ]);
+        return redirect()->route('laporan.index')->with('success', 'Transaksi berhasil diperbarui');
     }
 }
